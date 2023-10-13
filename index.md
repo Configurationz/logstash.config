@@ -3,7 +3,7 @@
 
 * Basic Structure for Log Monitoring using Elastic Stack
 
-![Preview](./img/elastic-search_workflow.png)
+![Preview](./img/elasticsearch_workflow.png)
 
 ## Prerequisites
 ----------------
