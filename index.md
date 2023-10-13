@@ -110,7 +110,7 @@ filebeat.inputs:
 ```
 * Changes made in "filebeat.inputs" "Apache_filestream", "/var/log/apache2/access.log" and "enable input configuration: true"
 
-* Always remember output will be sent to either Elasticsearch or Logstash not both at the same time so comment everything in ```Elasticsearch Output``` as we're dealing with logstash
+* Always remember output will be sent to either Elasticsearch or Logstash not both at the same time so comment everything in ```Elasticsearch Output``` as we're dealing with ```Logstash Output```
 
 ```
 # ================================== Outputs ===================================
