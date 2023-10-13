@@ -23,7 +23,6 @@
 
 
 ## Let's get started
---------------------
 
 > ### 1. Beats (Filebeat) Server Configuration
  
@@ -69,17 +68,21 @@ sudo apt update && sudo apt install apache2 -y
   
     * * filebeat configuration [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
 
-
-> sudo apt update
-
-> wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-
-> sudo apt-get install apt-transport-https
-
-> echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
-
-> sudo apt-get update && sudo apt-get install filebeat
-
+```
+sudo apt update
+```
+```
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+```
+```
+sudo apt-get install apt-transport-https
+```
+```
+echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+```
+```
+sudo apt-get update && sudo apt-get install filebeat
+```
 
 * Next, we need to update the filebeat configuration file present in ```/etc/filebeat/filebeat.yml```
 
@@ -178,7 +181,7 @@ echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.
 sudo apt-get update && sudo apt-get install logstash
 ```
 
-* Now we need to create a logstash pipeline to receive the logs from beats (filebeat) and send it to elastic search and also transfom the apache logs
+* Now we need to create a logstash pipeline to receive the logs from beats (filebeat), transfom the apache logs and then forward it to elastic search
 
 * The tested pipeline for transforming apache logs is _**[apache.conf](./files/apache.conf)**_
 
@@ -186,6 +189,7 @@ sudo apt-get update && sudo apt-get install logstash
   * How this service works is, it'll read this directory ```/etc/logstash/conf.d/``` and each & every file with ".conf" extension present in ```/etc/logstash/conf.d/``` will be executed. If we don't want a particular file to be executed just change it's extension & that file will not execute.
 
 ```
+sudo systemctl daemon-reload
 sudo systemctl enable logstash.service
 sudo systemctl start logstash.service
 ```
