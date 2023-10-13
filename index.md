@@ -1,5 +1,6 @@
 
-### 
+## Installation and Configuration of filebeat and logstash
+-----------------------------------------------------------
 
 * Basic Structure for Log Monitoring using Elastic Stack
 
@@ -9,8 +10,8 @@
 ----------------
 
 1. We'll require 2 servers, 
-     - one to install beats (filebeat), Apache2, generate some logs and forward them to logstash
-     - second server will be used to configure logstash and act according to pipeline in which it'll take input (logs) from filebeat (1st server), parse the logs according to the pipeline script and forward the parsed output (logs) to elasticsearch
+   - one to install beats (filebeat), Apache2, generate some logs and forward them to logstash
+   - second server will be used to configure logstash and act according to pipeline in which it'll take input (logs) from filebeat (1st server), parse the logs according to the pipeline script and forward the parsed output (logs) to elasticsearch
 
 2. Log parsing means that the logs which are generated are in text format and searching text would be very hectic work so inorder to make it understandable we convert these logs into some format so that they can be easily queryable in this case it's _json_ format
 
@@ -24,20 +25,18 @@
 ## Let's get started
 --------------------
 
-1. Setup the Apache server
+1. Setup the Apache server on ubuntu 22.04 and check the Apache logs
 ```
 sudo apt update && sudo apt install apache2 -y
 ```
-Check the Apache logs,
-
 ![Preview](./img/apache2logspath.png)
 
 2. Once the Apache server is setup, we need to generate the traffic so let's create a small script
 
-   * As mentioned in the _**[script](./files/ping.sh)**_, we'll be continuously generating logs for 2 status codes
-
+     * As mentioned in the _**[script](./files/ping.sh)**_, we'll be continuously generating logs for 2 status codes
    1. '200' which is a success message (Connection is Ok)
    2. '404' which is a failure message that's because of "/test.html" as there's no such file. Since, to generate different logs, we added "/test.html" to the script
+
 
 >   * HTTP Status codes
 >       * 1xx => Information
@@ -47,51 +46,25 @@ Check the Apache logs,
 >       * 5xx => Server-side errors
 
 
-3. Run the script form anywhere either from your local m/c or from any remote server
+3. Run the script from anywhere either from your local m/c or from any remote server
 
 ![Preview](./img/scriptexecution.png)
 
 
-4. Following is the output of our Apache log
+4. Following is the output of the Apache log
 
 ![Preview](./img/accesslog.png)
 
 
-5. Now, that the Apache server is up and running, let's install _**[logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html)**_
-
-```
-sudo apt update
-```
-```
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
-```
-```
-sudo apt-get install apt-transport-https
-```
-```
-echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
-```
-```
-sudo apt-get update && sudo apt-get install logstash
-```
-
-6. Now we need to create a logstash pipeline to receive the logs from beats (filebeat) and send it to elastic search and also transfom the apache logs
-
-7. The tested pipeline for transforming apache logs is _**[apache.conf](./files/apache.conf)**_
-
-8. Now save this apache.conf to ```/etc/logstash/conf.d/``` and then enable and start logstash
-   * How this service works is, it'll read this directory ```/etc/logstash/conf.d/``` and each & every file with ".conf" extension present in ```/etc/logstash/conf.d/``` will be executed. If we don't want a particular file to be executed just change it's extension & that file will not execute.
-```
-sudo systemctl enable logstash.service
-sudo systemctl start logstash.service
-```
-9. Now we need to setup beats which reads the logs written to file ```/var/logs/apache2/access.log```
+5. Now we need to setup beats which reads the logs written to file ```/var/logs/apache2/access.log```
 
     * Elastic stack has different beats
+
 ![Preview](./img/beatsfamily.png)
 
-10. We'll be using _**[Filebeat](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)**_
+6. We'll be using _**[Filebeat](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)**_
     * * filebeat Installation using APT [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/setup-repositories.html)
+  
     * * filebeat configuration [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
 
 ```
@@ -110,7 +83,7 @@ echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee 
 sudo apt-get update && sudo apt-get install filebeat
 ```
 
-11. So, we need to update the filebeat configuration file present in ```/etc/filebeat/filebeat.yml```
+7. Next, we need to update the filebeat configuration file present in ```/etc/filebeat/filebeat.yml```
 
 ```
 # ============================== Filebeat inputs ===============================
@@ -134,7 +107,7 @@ filebeat.inputs:
   paths:
     - /var/log/apache2/access.log
 ```
-12. Always remember output will be sent to either Elasticsearch or Logstash not both at the same time so comment everything in ```Elasticsearch Output``` as we're dealing with logstash
+8. Always remember output will be sent to either Elasticsearch or Logstash not both at the same time so comment everything in ```Elasticsearch Output``` as we're dealing with logstash
 
 ```
 # ================================== Outputs ===================================
@@ -170,4 +143,33 @@ output.logstash:
   #ssl.key: "/etc/pki/client/cert.key"
 
 ```
-13. Enter the logstash server's private ip address in ```hosts: ["10.0.0.4:5044"]``` assuming both the filebeat and logstash servers are on same network
+9. Enter the logstash server's private ip address in ```hosts: ["10.0.0.4:5044"]``` assuming both the filebeat and logstash servers are on same network
+
+10. Now, that the Apache server is up and running, & filebeat is also configured, let's install _**[logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html)**_
+
+```
+sudo apt update
+```
+```
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
+```
+```
+sudo apt-get install apt-transport-https
+```
+```
+echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+```
+```
+sudo apt-get update && sudo apt-get install logstash
+```
+
+11. Now we need to create a logstash pipeline to receive the logs from beats (filebeat) and send it to elastic search and also transfom the apache logs
+
+12. The tested pipeline for transforming apache logs is _**[apache.conf](./files/apache.conf)**_
+
+13. Now save this apache.conf to ```/etc/logstash/conf.d/``` and then enable and start logstash
+       * How this service works is, it'll read this directory ```/etc/logstash/conf.d/``` and each & every file with ".conf" extension present in ```/etc/logstash/conf.d/``` will be executed. If we don't want a particular file to be executed just change it's extension & that file will not execute.
+```
+sudo systemctl enable logstash.service
+sudo systemctl start logstash.service
+```
