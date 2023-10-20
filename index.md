@@ -15,7 +15,7 @@
 
 2. Log parsing means that the logs which are generated are in text format and if we want to search for something then searching text would be very hectic work so inorder to make it understandable, we convert these logs into some format so that they can be easily queryable in this case it's _json_ format
 
-3. If the logs generated are already in _json_ format we can directly send them to elasticsearch/elastic cloud no need of logstash in this case
+3. If the logs generated are already in _json_ format we can directly send them to elasticsearch/elastic cloud no need of logstash
 
 4. We can configure 2 more servers for elasticsearch & kibana respectively, but I'll be using _**[Elastic cloud](https://www.elastic.co/cloud)**_ for both of them
 
