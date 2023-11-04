@@ -59,7 +59,7 @@ sudo apt update && sudo apt install apache2 -y
 
 * Now we need to setup beats which reads the logs written to file ```/var/logs/apache2/access.log```
 
-    * Elastic stack has different beats
+    * Elastic search has different beats
 
 ![Preview](./img/beatsfamily.png)
 
