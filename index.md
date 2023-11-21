@@ -34,7 +34,7 @@ sudo apt update && sudo apt install apache2 -y
 
 * Once the Apache server is setup, we need to generate the traffic so let's create a small script
 
-     * As mentioned in the _**[script](./files/ping.sh)**_, we'll be continuously generating logs for 2 status codes
+     * As mentioned in the _**[script](./files/ping.sh){:target="_blank"}**_, we'll be continuously generating logs for 2 status codes
    1. '200' which is a success message (Connection is Ok)
    2. '404' which is a failure message that's because of "/test.html" as there's no such file. Since, to generate different logs, we added "/test.html" to the script
 
