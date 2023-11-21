@@ -63,10 +63,10 @@ sudo apt update && sudo apt install apache2 -y
 
 ![Preview](./img/beatsfamily.png)
 
-* _**[Filebeat Installations](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)**_ 
-    * * filebeat Installation using APT [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/setup-repositories.html)
+> ### 2. _**[Filebeat Installations](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html){:target="_blank"}**_ 
+    * * filebeat Installation using APT [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/setup-repositories.html){:target="_blank"}
   
-    * * filebeat configuration [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
+    * * filebeat configuration [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html){:target="_blank"}
 
 ```
 sudo apt update
@@ -161,9 +161,9 @@ sudo systemctl enable filebeat.service
 sudo systemctl start filebeat.service
 ```
  
-> ### 2. Logstash Server Configuration
+> ### 3. Logstash Server Configuration
 
-* Let's install _**[logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html)**_
+* Let's install _**[logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html){:target="_blank"}**_
 
 ```
 sudo apt update
@@ -183,7 +183,7 @@ sudo apt-get update && sudo apt-get install logstash
 
 * Now we need to create a logstash pipeline to receive the logs from beats (filebeat), transfom the apache logs and then forward it to elastic search
 
-* The tested pipeline for transforming apache logs is _**[apache.conf](./files/apache.conf)**_
+* The tested pipeline for transforming apache logs is _**[apache.conf](./files/apache.conf){:target="_blank"}**_
 
 * Now save this apache.conf to ```/etc/logstash/conf.d/``` and then enable and start logstash
   * How this service works is, it'll read this directory ```/etc/logstash/conf.d/``` and each & every file with ".conf" extension present in ```/etc/logstash/conf.d/``` will be executed. If we don't want a particular file to be executed just change it's extension & that file will not execute.
