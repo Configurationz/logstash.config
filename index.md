@@ -17,7 +17,7 @@
 
 3. If the logs generated are already in _json_ format we can directly send them to elasticsearch/elastic cloud no need of logstash
 
-4. We can configure 2 more servers for elasticsearch & kibana respectively, but I'll be using _**[Elastic cloud](https://www.elastic.co/cloud)**_ for both of them
+4. We can configure 2 more servers for elasticsearch & kibana respectively, but I'll be using _**[Elastic cloud](https://www.elastic.co/cloud){:target="_blank"}**_ for both of them
 
 5. And, kibana is our UI to communicate with elasticsearch and also to perform some analysis and generate documentations about the parsed logs which we'll receive from logstash
 
@@ -63,7 +63,7 @@ sudo apt update && sudo apt install apache2 -y
 
 ![Preview](./img/beatsfamily.png)
 
-> ### 2. _**[Filebeat Installations](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html){:target="_blank"}**_ 
+* _**[Filebeat Installations](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html){:target="_blank"}**_ 
     * * filebeat Installation using APT [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/setup-repositories.html){:target="_blank"}
   
     * * filebeat configuration [Refer Here](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html){:target="_blank"}
@@ -161,7 +161,7 @@ sudo systemctl enable filebeat.service
 sudo systemctl start filebeat.service
 ```
  
-> ### 3. Logstash Server Configuration
+> ### 2. Logstash Server Configuration
 
 * Let's install _**[logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html){:target="_blank"}**_
 
